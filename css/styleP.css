@@ -1,0 +1,107 @@
+body {
+    background-color: #f5bf23;
+    font-family: Arial, sans-serif;
+}
+.dark-theme{
+    
+   
+    --white: hsl(0, 1%, 22%);
+    --black: hsl(0, 0%, 100%);
+    --opal: hsl(180, 1%, 26%);
+  }
+  :root {
+    --white: hsl(0, 0%, 100%);
+    --black:rgb(15, 15, 15);
+    --opal: hsl(180, 17%, 95%);
+   
+}
+
+button{
+    width: 30px;height: 30px;background: var(--opal);border-radius: 20px;
+    color: black;margin-bottom: 10px;border: 2px dashed black;margin-left: 50%;
+}
+.header-bottom-actions-btn ion-icon {
+    color: black;
+    font-size: 20px;
+   
+  }
+  
+  .header-bottom-actions-btn:is(:hover, :focus) ion-icon {
+    color: var(--orange-soda);
+  }
+form {
+    max-width: 500px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: var(--white);
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+ 
+label {
+    display: block;
+    margin-bottom: 10px;
+    font-weight: bold; color: var(--black);
+}
+
+input[type="text"],
+textarea,
+select {
+    width: 90%;
+    padding: 10px;
+    border: 1px solid #f5bf23;
+    border-radius: 5px;
+    margin-bottom: 20px;background-color: var(--opal);
+    transition: border-color 0.3s ease-in-out;
+}
+
+input[type="text"]:focus,
+textarea:focus,
+select:focus {
+    outline: none;
+    border-color: #333;
+}
+
+input[type="number"] {
+    width: 90%;
+    padding: 10px;
+    border: 1px solid #f5bf23;
+    border-radius: 5px;
+    margin-bottom: 20px;background-color: var(--opal);
+    transition: border-color 0.3s ease-in-out;
+}
+
+input[type="number"]:focus {
+    outline: none;background-color: var(--opal);
+    border-color: #333;
+}
+
+input[type="file"] {
+    margin-bottom: 20px;
+    background-color: var(--opal);
+}
+
+input[type="submit"] {
+    background-color: #f5bf23;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease-in-out;
+}
+
+input[type="submit"]:hover {
+    background-color: #e39e17;
+}
+.logo
+{
+        width: 200px; 
+        margin-bottom: 20px;
+        margin-left: 28%;
+}
+.err
+{
+    background-color: #e39e17;
+    border-radius: 4px;
+}
