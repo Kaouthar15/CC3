@@ -164,7 +164,24 @@ catch(PDOException $r)
            
 
             <div class="hero-search">
-              
+              <div class="hero-div-input">
+                <input type="text" id="searchQuery" name="searchQuery" class="hero-input" autocomplete="off"
+                  placeholder="What are you looking for?" value="">
+                <button type="submit" id="Search-Freelancers" class="hero-btn-search" title="Search Freelancers"
+                  onclick="datalayerpush(event)">
+                  <svg viewBox="0 0 20 16" height="48" width="18" role="img" class="u-svg-ico"
+                    aria-labelledby="searchGuru">
+                    <title id="searchGuru">Search Freelancers</title>
+                    <path
+                      d="M19.76 18.58l-4.81-4.8a8.43 8.43 0 10-1.18 1.18l4.8 4.8a.83.83 0 001.19-1.18zM8.5 15a6.5 6.5 0 11.01-13.01A6.5 6.5 0 018.5 15z">
+                    </path>
+
+                  </svg>
+                </button>
+              </div>
+              <span class="c-hero__cta__separator" role="presentation">
+                Or
+              </span>
               <div class="c-hero__cta__post">
                 <button class="btn"><a href="post.php">Post a Service - It's Free</a></button>
               </div>
