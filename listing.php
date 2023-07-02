@@ -1,10 +1,32 @@
 <?php
 require("conn.php");
-// try
-// {
-//     $rs = $con->
-// }
-// catch()
+$searchQuery = $_POST['searchQuery']; 
+
+
+//$query = "SELECT * FROM services WHERE service_name LIKE '%$searchQuery%'";
+
+try {
+    // Construct the database query
+    $query = "SELECT * FROM services WHERE service_name LIKE :searchQuery";
+
+    // Prepare the SQL statement
+    $stmt = $con->prepare($query);
+
+    // Bind the search query parameter
+    $stmt->bindValue(':searchQuery', '%' . $searchQuery . '%');
+
+    // Execute the query
+    $stmt->execute();
+
+    // Fetch all rows as an associative array
+    $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+} catch (PDOException $e) {
+    // Handle errors gracefully
+    echo "Error: " . $e->getMessage();
+}
+
+
 ?>
 <!DOCTYPE html>
 <html>
@@ -82,7 +104,11 @@ require("conn.php");
 
                 <div class="header-bottom-actions">
 
-                    
+                    <button class="header-bottom-actions-btn" aria-label="Search">
+                        <ion-icon name="search-outline"></ion-icon>
+
+                        <span>Search</span>
+                    </button>
 
                     <button class="header-bottom-actions-btn" aria-label="Cart" id="searchbtn">
                         <ion-icon name="moon-outline" id="dark"></ion-icon>
@@ -126,130 +152,65 @@ require("conn.php");
 
     </header>
 
+    <?php
+        if (count($result) > 0) {
+            foreach ($result as $row) {
+    ?>
     <div class="container">
-
         <div class="list-container">
             <div class="left-col">
-
-            <?php 
-            if (isset($_GET["id"]))
-            {
-                $rs = $con -> prepare("SELECT * FROM services WHERE category_id=?");
-                $rs-> execute([$_GET['id']]);
-                $o = $rs-> fetchAll();
-                
-            }
-            ?>
-
-            <?php 
-            foreach($o as $i)
-            {
-                echo "
                 <div class='house'>
                     <div class='house-img'>
-                        <a href='accueil.php'><img src='$i[8]'></a>
+                        <a href='accueil.php'><img src='<?php echo $row['pictures']; ?>'></a>
                     </div>
                     <div class='house-info'>
-                        <p>$i[3]</p>
-                        <h3>$i[4]</h3>
-                        <p>$i[5]</p> ";
-            ?>
-             <div id="stars">
-    <span class="star" onclick="rateStar(1)">&#9734;</span>
-    <span class="star" onclick="rateStar(2)">&#9734;</span>
-    <span class="star" onclick="rateStar(3)">&#9734;</span>
-    <span class="star" onclick="rateStar(4)">&#9734;</span>
-    <span class="star" onclick="rateStar(5)">&#9734;</span>
-  </div>
+                        <p><?php echo $row['category_id']; ?></p>
+                        <h3><?php echo $row['service_name']; ?></h3>
+                        <p><?php echo $row['description']; ?></p>
+                        <div id='stars'>
+                            <span class='star' onclick='rateStar(1)'>&#9734;</span>
+                            <span class='star' onclick='rateStar(2)'>&#9734;</span>
+                            <span class='star' onclick='rateStar(3)'>&#9734;</span>
+                            <span class='star' onclick='rateStar(4)'>&#9734;</span>
+                            <span class='star' onclick='rateStar(5)'>&#9734;</span>
+                        </div>
+                        <script>
+                            let selectedStars = 0;
 
-  <script>
-    let selectedStars = 0;
+                            function rateStar(stars) {
+                            selectedStars = stars;
 
-    function rateStar(stars) {
-      selectedStars = stars;
-
-      // Appliquer la classe 'selected' aux étoiles sélectionnées
-      const starElements = document.getElementsByClassName('star');
-      for (let i = 0; i < starElements.length; i++) {
-        if (i < stars) {
-          starElements[i].classList.add('selected');
-        } else {
-          starElements[i].classList.remove('selected');
-        }
-      }
+                            const starElements = document.getElementsByClassName('star');
+                            for (let i = 0; i < starElements.length; i++) {
+                                if (i < stars) {
+                                starElements[i].classList.add('selected');
+                                } else {
+                                starElements[i].classList.remove('selected');
+                                }
+                            }
 
 
-    }
-  </script>
-            <?php
-                echo "
-                <div class='house-price'>
-                            <p>$i[7]</p>
-                            <h4>$i[6]</h4>
+                            }
+                        </script>
+                        <div class='house-price'>
+                            <p><?php echo $row['price']; ?></p>
+                            <h4><?php echo $row['availability']; ?></h4>
                         </div>
                     </div>
                 </div>
-                ";
-            }
-            ?>
-                
-
-            <!-- <div class="right-col">
-                <div class="sidebar">
-                    <h2>Select Filters</h2>
-                    <h3>Property Type</h3>
-                    <div class="filter">
-                        <input type="checkbox">
-                        <p>House</p> <span>(0)</span>
-                    </div>
-                    <div class="filter">
-                        <input type="checkbox">
-                        <p>Hostel</p> <span>(0)</span>
-                    </div>
-                    <div class="filter">
-                        <input type="checkbox">
-                        <p>Flat</p> <span>(0)</span>
-                    </div>
-                    <div class="filter">
-                        <input type="checkbox">
-                        <p>Villa</p> <span>(0)</span>
-                    </div>
-                    <div class="filter">
-                        <input type="checkbox">
-                        <p>Guest Suite</p> <span>(0)</span>
-                    </div>
-                    <h3>Amenities</h3>
-                    <div class="filter">
-                        <input type="checkbox">
-                        <p>Air Conditioning</p> <span>(0)</span>
-                    </div>
-                    <div class="filter">
-                        <input type="checkbox">
-                        <p>Wifi</p> <span>(0)</span>
-                    </div>
-                    <div class="filter">
-                        <input type="checkbox">
-                        <p>Gym</p> <span>(0)</span>
-                    </div>
-                    <div class="filter">
-                        <input type="checkbox">
-                        <p>Pool</p> <span>(0)</span>
-                    </div>
-                    <div class="filter">
-                        <input type="checkbox">
-                        <p>Kitchen</p> <span>(0)</span>
-                    </div>
-
-                    <div class="sidebar-link">
-                        <a href="#">View More</a>
-                    </div>
-                </div>
             </div>
-        </div> -->
-
-
-        
+        </div>
     </div>
+    <?php
+            }
+        } else {
+    ?>
+           <div class='notDiv' style=" width: 100%;padding: 20px;display: flex;justify-content: center;align-items: center;
+    height:85vh;background-color: grey;color: white;">
+                <h1 class='notF' style="font-size:70px ;">Service Not Found</h1>
+          </div>
+     <?php   }
+    ?>
 
     <!-- 
     - custom js link
