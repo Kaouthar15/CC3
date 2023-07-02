@@ -86,7 +86,11 @@ catch(PDOException $r)
 
         <div class="header-bottom-actions">
 
-          
+          <button class="header-bottom-actions-btn" aria-label="Search">
+            <ion-icon name="search-outline"></ion-icon>
+
+            <span>Search</span>
+          </button>
 
           <button class="header-bottom-actions-btn" aria-label="Cart" id="searchbtn">
             <ion-icon name="moon-outline" id="dark"></ion-icon>
@@ -165,8 +169,11 @@ catch(PDOException $r)
 
             <div class="hero-search">
               <div class="hero-div-input">
+                <form action="listing.php" method="POST">
                 <input type="text" id="searchQuery" name="searchQuery" class="hero-input" autocomplete="off"
                   placeholder="What are you looking for?" value="">
+                </form>
+
                 <button type="submit" id="Search-Freelancers" class="hero-btn-search" title="Search Freelancers"
                   onclick="datalayerpush(event)">
                   <svg viewBox="0 0 20 16" height="48" width="18" role="img" class="u-svg-ico"
