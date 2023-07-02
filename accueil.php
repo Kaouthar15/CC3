@@ -86,12 +86,7 @@ catch(PDOException $r)
 
         <div class="header-bottom-actions">
 
-          <button class="header-bottom-actions-btn" aria-label="Search">
-            <ion-icon name="search-outline"></ion-icon>
-
-            <span>Search</span>
-          </button>
-
+       
           <button class="header-bottom-actions-btn" aria-label="Cart" id="searchbtn">
             <ion-icon name="moon-outline" id="dark"></ion-icon>
           </button>
